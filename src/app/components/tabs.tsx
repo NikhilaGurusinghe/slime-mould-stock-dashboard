@@ -9,8 +9,6 @@ export default function Tabs() {
   const ytdButtonRef = useRef<HTMLButtonElement>(null);
   const maxButtonRef = useRef<HTMLButtonElement>(null);
 
-  
-
   return (
     <div className="relative">
       <div className="top-0 absolute transition-all backdrop-blur-md bg-(--color-highlight)/30 border border-(--color-highlight-border)/20 h-full w-[80px] rounded-2xl"></div>
