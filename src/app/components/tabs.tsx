@@ -9,9 +9,11 @@ export default function Tabs() {
   const ytdButtonRef = useRef<HTMLButtonElement>(null);
   const maxButtonRef = useRef<HTMLButtonElement>(null);
 
+  
+
   return (
     <div className="relative">
-      <div className="top-0 absolute transition-all backdrop-blur-md bg-(--color-highlight)/30 border border-(--color-highlight-border)/20 h-full w-[80px] rounded-full"></div>
+      <div className="top-0 absolute transition-all backdrop-blur-md bg-(--color-highlight)/30 border border-(--color-highlight-border)/20 h-full w-[80px] rounded-2xl"></div>
       <div
         className="flex flex-row relative flex-wrap justify-center items-center"
         style={{ columnGap: FLEX_X_GAP }}
