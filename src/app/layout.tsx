@@ -3,99 +3,10 @@ import "./globals.css";
 
 import localFont from "next/font/local";
 
-const ABCSchengenA = localFont({
-  src: [
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-Thin.otf",
-      weight: "100",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-ThinItalic.otf",
-      weight: "100",
-      style: "italic",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-Light.otf",
-      weight: "200",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-LightItalic.otf",
-      weight: "200",
-      style: "italic",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-Regular.otf",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-RegularItalic.otf",
-      weight: "300",
-      style: "italic",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-Book.otf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-BookItalic.otf",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-Medium.otf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-MediumItalic.otf",
-      weight: "500",
-      style: "italic",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-SemiBold.otf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-SemiBoldItalic.otf",
-      weight: "600",
-      style: "italic",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-Bold.otf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-BoldItalic.otf",
-      weight: "700",
-      style: "italic",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-Heavy.otf",
-      weight: "800",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-HeavyItalic.otf",
-      weight: "800",
-      style: "italic",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-Ultra.otf",
-      weight: "900",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Schengen/ABCSchengenA/ABCSchengenATrial-UltraItalic.otf",
-      weight: "900",
-      style: "italic",
-    },
-  ],
+const ABCSchengenVariable = localFont({
+  src: "../fonts/Schengen/ABCSchengenVariable/ABCSchengenVariableTrial.ttf",
+  variable: "--font-schengen-variable",
+  weight: "100 200 300 400 500 700 800 900",
 });
 
 const ABCSchengenAMono = localFont({
@@ -191,6 +102,7 @@ const ABCSchengenAMono = localFont({
       style: "italic",
     },
   ],
+  variable: "--font-schengen-a-mono",
 });
 
 export const metadata: Metadata = {
@@ -201,7 +113,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`h-full antialiased`}>
-      <body className={`${ABCSchengenA.className} h-full w-full flex flex-col`}>
+      <body
+        className={`${ABCSchengenVariable.className} h-full w-full flex flex-col`}
+      >
         {children}
       </body>
     </html>
