@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --color-highlight: #f1dc29;
+  --color-highlight-border: #f0e481;
 }
 
 @theme inline {
@@ -18,6 +20,20 @@
     --foreground: #ededed;
   }
 } */
+
+@utility font-slnt-* {
+  font-style: oblique --value(number);
+}
+
+@property --font-variation-wdth {
+  syntax: "*";
+  inherits: false;
+}
+
+@property --font-variation-slnt {
+  syntax: "*";
+  inherits: false;
+}
 
 body {
   background: var(--background);

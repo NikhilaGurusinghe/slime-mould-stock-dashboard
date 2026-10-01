@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import localFont from "next/font/local";
+import Link from "next/link";
+import Navbar from "./components/navbar";
+import SkipToMainContent from "./components/skip-to-main-content";
 
 const ABCSchengenVariable = localFont({
   src: "../fonts/Schengen/ABCSchengenVariable/ABCSchengenVariableTrial.ttf",
@@ -116,6 +119,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body
         className={`${ABCSchengenVariable.className} h-full w-full flex flex-col`}
       >
+        <SkipToMainContent mainContentId="content" />
+        <Navbar />
         {children}
       </body>
     </html>
