@@ -2,9 +2,7 @@
 
 import clsx from "clsx";
 import { useState } from "react";
-import ThreeBarsIcon from "./icon/3-bars-icon";
-import ArrowDownRightIcon from "./icon/arrow-down-right-icon";
-import EllipsesVerticalIcon from "./icon/ellipses-vertical-icon";
+
 
 export default function PortfolioExplorer(props: {
   balance: number;
