@@ -10,10 +10,10 @@ export default function Tabs() {
   const maxButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <div className="relative">
+    <div className="relative flex">
       <div className="top-0 absolute transition-all backdrop-blur-md bg-(--color-highlight)/30 border border-(--color-highlight-border)/20 h-full w-[80px] rounded-2xl"></div>
       <div
-        className="flex flex-row relative flex-wrap justify-center items-center"
+        className="flex flex-col md:flex-row relative justify-center items-center"
         style={{ columnGap: FLEX_X_GAP }}
       >
         <button
