@@ -38,9 +38,12 @@ export default function SlimeStatusHistory(props: {
           asdsadssssssssssssssssssssssssssssssssssssssssssssssssss
         </div>
       )}
-      <span key={prevSlimeStatus.date} className="absolute cursor-pointer flex flex-row gap-x-2 items-center w-full justify-start animate-rotateX-out">
+      <span
+        key={prevSlimeStatus.date}
+        className="absolute cursor-pointer flex flex-row gap-x-2 items-center w-full justify-start animate-rotateX-out"
+      >
         <h1 className="sr-only">previous status</h1>
-         <div
+        <div
           className={"rounded-full size-3 animate-radiate"}
           style={{ backgroundColor: prevSlimeStatus.statusColour }}
         />
