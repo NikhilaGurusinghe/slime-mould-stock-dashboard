@@ -1,41 +1,83 @@
 "use client";
 
-import { useRef, useState } from "react";
+import clsx from "clsx";
+import { type RefObject, useLayoutEffect, useRef, useState } from "react";
 
-export default function Tabs() {
+export default function Tabs(props: { tabButtonNames: string[] }) {
   const FLEX_X_GAP: number = 8; // in px
 
-  const monthlyButtonRef = useRef<HTMLButtonElement>(null);
-  const ytdButtonRef = useRef<HTMLButtonElement>(null);
-  const maxButtonRef = useRef<HTMLButtonElement>(null);
+  const allButtonRefs: RefObject<HTMLButtonElement[]> = useRef<
+    HTMLButtonElement[]
+  >([]);
 
-  const [currButtonIndex, setCurrButtonIndex] = useState<number>(0);
+  const [highlightWidth, setHighlightWidth] = useState<number>(69.7);
+  const [highlightHeight, setHighlightHeight] = useState<number>(40);
+  const [highlightTranslateX, setHighlightTranslateX] = useState<number>(0);
+  const [highlightTranslateY, setHighlightTranslateY] = useState<number>(0);
+  const [currHighlightIndex, setCurrHighlightIndex] = useState<number>(0);
+
+  function updateHighlight(refIndex: number) {
+    if (allButtonRefs.current.length === 0 || refIndex > allButtonRefs.current.length) return;
+    const ref = allButtonRefs.current[refIndex];
+
+    setHighlightWidth(ref.clientWidth);
+    setHighlightHeight(ref.clientHeight);
+    setHighlightTranslateX(ref.offsetLeft);
+    setHighlightTranslateY(ref.offsetTop);
+    setHighlightTranslateY(ref.offsetTop);
+    setCurrHighlightIndex(refIndex);
+  }
+
+  function updateHighlightCurrent() {
+    updateHighlight(currHighlightIndex);
+  }
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: need empty dependencies here
+  useLayoutEffect(() => {
+    updateHighlightCurrent();
+
+    if (!window) return;
+
+    window.addEventListener("resize", updateHighlightCurrent);
+
+    return () => window.removeEventListener("resize", updateHighlightCurrent);
+  }, []);
 
   return (
-    <div className="relative flex">
-      <div className="top-0 absolute transition-all backdrop-blur-md bg-(--color-highlight)/30 border border-(--color-highlight-border)/20 h-full w-[80px] rounded-2xl"></div>
-      <div className="flex flex-col md:flex-row relative justify-center items-center md:gap-x-2">
-        <button
-          ref={monthlyButtonRef}
-          type="button"
-          className="cursor-pointer px-3 py-2 rounded-full"
-        >
-          monthly
-        </button>
-        <button
-          ref={ytdButtonRef}
-          type="button"
-          className="cursor-pointer px-3 py-2 rounded-full"
-        >
-          year to date
-        </button>
-        <button
-          ref={maxButtonRef}
-          type="button"
-          className="cursor-pointer px-3 py-2 rounded-full"
-        >
-          max
-        </button>
+    <div className="relative flex bg-white/5 border-white/10 rounded-2xl border px-px py-px">
+      <div
+        className={
+          "absolute h-(--highlight-height) md:w-(--highlight-width) md:translate-x-(--highlight-translate-x) translate-y-(--highlight-translate-y) md:h-[calc(100%-2px)] w-[calc(100%-2px)] transition-all backdrop-blur-md bg-(--color-highlight)/30 border border-(--color-highlight-border)/20 rounded-2xl"
+        }
+        style={
+          {
+            "--highlight-height": `${highlightHeight}px`,
+            "--highlight-width": `${highlightWidth}px`,
+            "--highlight-translate-x": `${highlightTranslateX}px`,
+            "--highlight-translate-y": `${highlightTranslateY}px`,
+          } as React.CSSProperties
+        }
+      ></div>
+      <div
+        role="tablist"
+        className="flex flex-col md:flex-row relative justify-center items-center md:gap-x-2"
+      >
+        {props.tabButtonNames.map((tabName, index) => (
+          <button
+            role="tab"
+            key={tabName}
+            ref={(element) => {
+              if (!element) return;
+              allButtonRefs.current[index] = element;
+            }}
+            type="button"
+            className="cursor-pointer px-3 py-2 rounded-full"
+            onClick={() => updateHighlight(index)}
+            aria-selected={currHighlightIndex === index}
+          >
+            {tabName}
+          </button>
+        ))}
       </div>
     </div>
   );

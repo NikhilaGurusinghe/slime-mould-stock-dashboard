@@ -10,6 +10,7 @@ export type SlimeStatusAndHistory = {
   message: string;
   subMessage: string;
   image: string;
+  iconName: string;
 };
 
 export default function SlimeStatusHistory(props: {
@@ -27,6 +28,7 @@ export default function SlimeStatusHistory(props: {
           message: "Physarum is initialising",
           subMessage: "is initialising",
           image: "test",
+          iconName: "initialise",
         };
   const lastSlimeStatus: SlimeStatusAndHistory =
     props.statuses[props.statuses.length - 1];

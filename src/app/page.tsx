@@ -22,10 +22,11 @@ export default function Home() {
                 message: "Physarum has made a decision",
                 subMessage: "Decided to buy stock A",
                 image: "test",
+                iconName: "decision",
               },
             ]}
           />
-          <Tabs />
+          <Tabs tabButtonNames={["month", "year to date", "max"]} />
         </div>
       </div>
 
