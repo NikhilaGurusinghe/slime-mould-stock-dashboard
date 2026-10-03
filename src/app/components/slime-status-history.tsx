@@ -91,7 +91,7 @@ export default function SlimeStatusHistory(props: {
         <TextMarquee marqueeText={prevSlimeStatus.status} />
       </span>
       {props.isOpen && (
-        <div className="flex flex-row w-full shrink-0 gap-x-4">
+        <div className="flex flex-row w-full shrink-0 gap-x-4 mb-2">
           <div className="relative flex flex-col items-center justify-center">
             <div className="w-0.75 h-1.25 bg-white ml-1.5" />
           </div>
