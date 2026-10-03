@@ -53,7 +53,7 @@ export default function SlimeStatusHistory(props: {
         type="button"
         onClick={() => setIsClosed((prevValue) => !prevValue)}
         key={lastSlimeStatus.date}
-        className="cursor-pointer flex flex-row gap-x-2 items-center w-full justify-start animate-rotateX-in [animation-delay:calc(var(--rotateX-duration)/4)]"
+        className="cursor-pointer flex flex-row gap-x-2 items-center w-full justify-start animate-rotateX-in [animation-delay:calc(var(--rotateX-duration)/8)]"
       >
         <span className="sr-only">view physarum history</span>
         <h1 className="sr-only">current status</h1>
