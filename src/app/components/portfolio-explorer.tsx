@@ -15,7 +15,7 @@ export default function PortfolioExplorer(props: {
         !props.isOpen &&
           "hover:px-5 hover:-ml-5 hover:py-3 hover:-mt-3 hover:border-(--color-highlight-border)/20 hover:bg-(--color-highlight)/30 hover:backdrop-blur-md",
         props.isOpen &&
-          "px-5 -ml-5 py-3 -mt-3 border-(--color-highlight-border)/20 bg-(--color-highlight)/30 border backdrop-blur-md",
+          "px-5 -ml-5 py-3 flex-1 -mt-3 border-(--color-highlight-border)/20 bg-(--color-highlight)/30 border backdrop-blur-md",
       )}
     >
       <button

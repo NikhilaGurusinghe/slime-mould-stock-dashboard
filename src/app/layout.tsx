@@ -117,7 +117,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`h-full antialiased`}>
       <body
-        className={`${ABCSchengenVariable.className} h-full w-full flex flex-col`}
+        className={`${ABCSchengenVariable.className} h-screen w-screen flex flex-col`}
       >
         <SkipToMainContent mainContentId="content" />
         <Navbar />
