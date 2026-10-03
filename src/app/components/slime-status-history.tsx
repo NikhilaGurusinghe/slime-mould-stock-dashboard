@@ -1,7 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import { useState } from "react";
 import HistorySection from "./history-section";
 import TextMarquee from "./text-marquee";
 
@@ -44,8 +43,9 @@ export default function SlimeStatusHistory(props: {
         "relative flex flex-col md:text-lg pl-5 py-2 md:-ml-3 max-w-full md:max-w-1/2 overflow-clip items-start justify-end transition-all border border-transparent rounded-2xl",
       )}
     >
+      {/* TODO make this scroll to the bottom on mount */}
       {props.isOpen && (
-        <div className="w-full flex-1 min-h-0 overflow-y-auto overscroll-contain scrollbar-thin">
+        <div className="w-full flex-1 min-h-0 overflow-y-auto overscroll-contain scrollbar-track-transparent scrollbar-thumb-white">
           <div className="flex min-h-full flex-col-reverse justify-end pr-5">
             <HistorySection />
             <HistorySection />
