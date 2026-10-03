@@ -18,7 +18,6 @@ export default function SlimeStatusHistory(props: {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
 }) {
-
   const prevSlimeStatus: SlimeStatusAndHistory =
     props.statuses.length >= 2
       ? props.statuses[props.statuses.length - 2]
@@ -35,10 +34,10 @@ export default function SlimeStatusHistory(props: {
     props.statuses[props.statuses.length - 1];
 
   return (
-    <div className="relative flex flex-col md:text-lg px-3 py-2 -ml-3 max-w-full md:max-w-1/2 items-start justify-start transition-all bg-white/5 border-white/10 hover:bg-(--color-highlight)/30 border border-transparent hover:border-(--color-highlight-border)/20 rounded-2xl">
+    <div className="relative flex flex-col md:text-lg px-3 py-2 md:-ml-3 max-w-full md:max-w-1/2 items-start justify-start transition-all bg-white/5 border-white/10 hover:bg-(--color-highlight)/30 border border-transparent hover:border-(--color-highlight-border)/20 rounded-2xl">
       {props.isOpen && (
         <div className="overflow-y-auto">
-          asdsadssssssssssssssssssssssssssssssssssssssssssssssssss
+          asdsadsssssssssss
         </div>
       )}
       <span

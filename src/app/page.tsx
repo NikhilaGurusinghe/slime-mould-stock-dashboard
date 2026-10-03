@@ -1,7 +1,4 @@
 import HomepageControls from "./components/homepage-controls";
-import PortfolioExplorer from "./components/portfolio-explorer";
-import SlimeStatusHistory from "./components/slime-status-history";
-import Tabs from "./components/tabs";
 
 export default function Home() {
   const balance: number = 9351.12;

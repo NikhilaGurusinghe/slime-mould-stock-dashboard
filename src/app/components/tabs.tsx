@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import { type RefObject, useLayoutEffect, useRef, useState } from "react";
 
 export default function Tabs(props: { tabButtonNames: string[] }) {
@@ -7,8 +8,8 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
     HTMLButtonElement[]
   >([]);
 
-  const [highlightWidth, setHighlightWidth] = useState<number>(69.7);
-  const [highlightHeight, setHighlightHeight] = useState<number>(40);
+  const [highlightWidth, setHighlightWidth] = useState<number>(-1);
+  const [highlightHeight, setHighlightHeight] = useState<number>(-1);
   const [highlightTranslateX, setHighlightTranslateX] = useState<number>(0);
   const [highlightTranslateY, setHighlightTranslateY] = useState<number>(0);
   const [currHighlightIndex, setCurrHighlightIndex] = useState<number>(0);
@@ -27,6 +28,7 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
     setHighlightTranslateY(ref.offsetTop);
     setHighlightTranslateY(ref.offsetTop);
     setCurrHighlightIndex(refIndex);
+    console.log(currHighlightIndex)
   }
 
   function updateHighlightCurrent() {
@@ -42,14 +44,17 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
     window.addEventListener("resize", updateHighlightCurrent);
 
     return () => window.removeEventListener("resize", updateHighlightCurrent);
-  }, []);
+  }, [currHighlightIndex]);
 
   return (
-    <div className="relative flex bg-white/5 border-white/10 rounded-2xl border px-px py-px -right-3 md:text-lg">
+    <div className="relative flex bg-white/5 border-white/10 rounded-2xl border px-px py-px md:-right-3 md:text-lg">
       <div
-        className={
-          "absolute h-(--highlight-height) md:w-(--highlight-width) md:translate-x-(--highlight-translate-x) translate-y-(--highlight-translate-y) md:h-[calc(100%-2px)] w-[calc(100%-2px)] transition-all backdrop-blur-md bg-(--color-highlight)/30 border border-(--color-highlight-border)/20 rounded-2xl"
-        }
+        className={clsx(
+          highlightWidth !== -1 && highlightHeight !== -1
+            ? "opacity-100"
+            : "opacity-0",
+          "absolute h-(--highlight-height) md:w-(--highlight-width) md:translate-x-(--highlight-translate-x) translate-y-(--highlight-translate-y) md:h-[calc(100%-2px)] w-[calc(100%-2px)] transition-all backdrop-blur-md bg-(--color-highlight)/30 border border-(--color-highlight-border)/20 rounded-2xl",
+        )}
         style={
           {
             "--highlight-height": `${highlightHeight}px`,
@@ -58,7 +63,7 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
             "--highlight-translate-y": `${highlightTranslateY}px`,
           } as React.CSSProperties
         }
-      ></div>
+      />
       <div
         role="tablist"
         className="flex flex-col md:flex-row relative justify-center items-center gap-y-2 md:gap-x-2"
@@ -72,7 +77,7 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
               allButtonRefs.current[index] = element;
             }}
             type="button"
-            className="cursor-pointer px-3 py-2 rounded-full"
+            className="cursor-pointer px-3 py-2 rounded-full w-full md:text-nowrap"
             onClick={() => updateHighlight(index)}
             aria-selected={currHighlightIndex === index}
           >

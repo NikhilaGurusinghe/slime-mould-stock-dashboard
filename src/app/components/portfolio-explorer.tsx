@@ -1,7 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import type { Dispatch, SetStateAction } from "react";
 
 export default function PortfolioExplorer(props: {
   balance: number;
@@ -21,27 +20,31 @@ export default function PortfolioExplorer(props: {
     >
       <button
         type="button"
-        className="flex flex-row pl-5 -ml-5 pt-3 -mt-3 text-5xl md:text-7xl items-baseline justify-baseline font-medium cursor-pointer rounded-4xl border-transparent border"
+        className="flex flex-row flex-wrap pl-5 -ml-5 pt-3 -mt-3 text-5xl md:text-7xl items-baseline justify-baseline font-medium cursor-pointer rounded-4xl border-transparent border"
         onClick={() => props.setIsOpen(!props.isOpen)}
       >
         <span className="sr-only">view all portfolio assets</span>
-        <span className="font-stretch-103%">$</span>
-        <span className="font-stretch-110%">{props.balance}</span>
-        <span className="text-2xl md:text-3xl ml-2 md:ml-4 font-normal font-stretch-103%">
-          (
-        </span>
-        <span className="text-xl md:text-2xl font-normal font-stretch-103%">
-          {props.profitAndLoss < 0 ? "-" : "+"}$
-        </span>
-        <span className="text-xl md:text-2xl font-normal font-stretch-110%">
-          {Math.abs(props.profitAndLoss)}
-        </span>
-        <span className="text-2xl md:text-3xl font-normal font-stretch-103%">
-          )
-        </span>
+        <p>
+          <span className="font-stretch-103%">$</span>
+          <span className="font-stretch-110%">{props.balance}</span>
+        </p>
+        <p className="-mt-4">
+          <span className="text-2xl md:text-3xl ml-0 sm:ml-2 md:ml-4 font-normal font-stretch-103%">
+            (
+          </span>
+          <span className="text-xl md:text-2xl font-normal font-stretch-103%">
+            {props.profitAndLoss < 0 ? "-" : "+"}$
+          </span>
+          <span className="text-xl md:text-2xl font-normal font-stretch-110%">
+            {Math.abs(props.profitAndLoss)}
+          </span>
+          <span className="text-2xl md:text-3xl font-normal font-stretch-103%">
+            )
+          </span>
+        </p>
       </button>
       {props.isOpen && (
-        <div className="flex flex-col items-center justify-center w-full h-70 border border-white">
+        <div className="flex flex-col items-center justify-center w-full h-70 border border-white overflow-y-auto">
           pie chart
         </div>
       )}

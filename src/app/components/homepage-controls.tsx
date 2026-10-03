@@ -13,29 +13,21 @@ export default function HomepageControls(props: {
   const [isStatusOpen, setIsStatusOpen] = useState<boolean>(false);
 
   return (
-    <div className="absolute inset-0 w-full h-full flex flex-col items-start justify-between p-5 md:p-10">
-      <div className="flex flex-row gap-x-6 z-100 justify-start text-xl items-center underline-offset-6">
+    <div className="absolute w-full h-full flex flex-row items-start justify-between p-5 md:p-10 gap-x-3">
+      <div className="flex-8/10 h-full flex flex-col gap-x-6 justify-between items-start">
         <h1 className="sr-only">Dashboard</h1>
         <PortfolioExplorer
           isOpen={isExplorerOpen}
           setIsOpen={(value: boolean) => {
-            if (value === true && isStatusOpen) {
-              setIsStatusOpen(false);
-            }
+           
             setIsExplorerOpen(value);
           }}
           balance={props.balance}
           profitAndLoss={props.profitAndLoss}
         />
-      </div>
-
-      <div className="flex flex-row w-full items-end justify-between -mb-2 gap-x">
         <SlimeStatusHistory
-        isOpen={isStatusOpen}
-        setIsOpen={(value: boolean) => {
-            if (value === true && isExplorerOpen) {
-              setIsExplorerOpen(false);
-            }
+          isOpen={isStatusOpen}
+          setIsOpen={(value: boolean) => {
             setIsStatusOpen(value);
           }}
           statuses={[
@@ -50,6 +42,9 @@ export default function HomepageControls(props: {
             },
           ]}
         />
+      </div>
+
+      <div className="flex flex-2/10 flex-col h-full items-end justify-end">
         <Tabs tabButtonNames={["month", "year to date", "max"]} />
       </div>
     </div>
