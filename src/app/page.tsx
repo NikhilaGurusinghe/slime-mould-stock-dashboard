@@ -13,7 +13,18 @@ export default function Home() {
         </div>
 
         <div className="flex flex-row w-full items-end justify-between -mb-2">
-          <SlimeStatusHistory />
+          <SlimeStatusHistory
+            statuses={[
+              {
+                status: "Physarum is currently deciding...",
+                statusColour: "#4efa7b",
+                date: 12345,
+                message: "Physarum has made a decision",
+                subMessage: "Decided to buy stock A",
+                image: "test",
+              },
+            ]}
+          />
           <Tabs />
         </div>
       </div>

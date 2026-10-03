@@ -54,7 +54,10 @@ export default function TextMarquee({
   return (
     <div
       ref={textGrandParentDiv}
-      className="relative w-full overflow-x-hidden group rounded-lg"
+      className={clsx(
+        className,
+        "relative w-full overflow-x-hidden group rounded-lg",
+      )}
     >
       <div
         className={clsx(

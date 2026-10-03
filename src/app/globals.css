@@ -5,6 +5,7 @@
   --foreground: #ffffff;
   --color-highlight: #f1dc29;
   --color-highlight-border: #f0e481;
+  --rotateX-duration: 1000ms;
 }
 
 @theme inline {
@@ -15,6 +16,9 @@
   --animate-marquee: marquee 10s linear infinite;
   --animate-marquee-reverse: marquee-reverse 10s linear infinite;
   --animate-radiate: radiate 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-rotateX-in: rotateX-in 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  --animate-rotateX-out: rotateX-out calc(var(--rotateX-duration) * 2) cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
 
   @keyframes marquee {
     0%,
@@ -51,6 +55,40 @@
     100% {
       opacity: 100;
     }
+  }
+
+  @keyframes rotateX-in {
+    from {
+      transform: translateY(calc(-100%)) rotateX(-90deg);
+      opacity: 0;
+      filter: blur(1px);
+    }
+
+    to {
+      transform: translateY(0) rotateX(0deg);
+      opacity: 1;
+      filter: blur(0);
+    }
+  }
+
+  @keyframes rotateX-out {
+     0% {
+    transform: translateY(0) rotateX(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  66.666% {
+    transform: translateY(100%) rotateX(90deg);
+    opacity: 0;
+    filter: blur(1px);
+  }
+
+  100% {
+    transform: translateY(100%) rotateX(90deg);
+    opacity: 0;
+    filter: blur(1px);
+  }
   }
 }
 

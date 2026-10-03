@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function Tabs() {
   const FLEX_X_GAP: number = 8; // in px
@@ -9,13 +9,12 @@ export default function Tabs() {
   const ytdButtonRef = useRef<HTMLButtonElement>(null);
   const maxButtonRef = useRef<HTMLButtonElement>(null);
 
+  const [currButtonIndex, setCurrButtonIndex] = useState<number>(0);
+
   return (
     <div className="relative flex">
       <div className="top-0 absolute transition-all backdrop-blur-md bg-(--color-highlight)/30 border border-(--color-highlight-border)/20 h-full w-[80px] rounded-2xl"></div>
-      <div
-        className="flex flex-col md:flex-row relative justify-center items-center"
-        style={{ columnGap: FLEX_X_GAP }}
-      >
+      <div className="flex flex-col md:flex-row relative justify-center items-center md:gap-x-2">
         <button
           ref={monthlyButtonRef}
           type="button"
