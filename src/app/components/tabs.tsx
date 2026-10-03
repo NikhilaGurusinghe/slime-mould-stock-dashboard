@@ -28,7 +28,7 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
     setHighlightTranslateY(ref.offsetTop);
     setHighlightTranslateY(ref.offsetTop);
     setCurrHighlightIndex(refIndex);
-    console.log(currHighlightIndex)
+    console.log(currHighlightIndex);
   }
 
   function updateHighlightCurrent() {

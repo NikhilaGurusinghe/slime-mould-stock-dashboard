@@ -35,11 +35,7 @@ export default function SlimeStatusHistory(props: {
 
   return (
     <div className="relative flex flex-col md:text-lg px-3 py-2 md:-ml-3 max-w-full md:max-w-1/2 items-start justify-start transition-all bg-white/5 border-white/10 hover:bg-(--color-highlight)/30 border border-transparent hover:border-(--color-highlight-border)/20 rounded-2xl">
-      {props.isOpen && (
-        <div className="overflow-y-auto">
-          asdsadsssssssssss
-        </div>
-      )}
+      {props.isOpen && <div className="overflow-y-auto">asdsadsssssssssss</div>}
       <span
         key={prevSlimeStatus.date}
         className="absolute cursor-pointer flex flex-row gap-x-2 items-center w-full justify-start animate-rotateX-out"

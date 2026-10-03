@@ -19,7 +19,6 @@ export default function HomepageControls(props: {
         <PortfolioExplorer
           isOpen={isExplorerOpen}
           setIsOpen={(value: boolean) => {
-           
             setIsExplorerOpen(value);
           }}
           balance={props.balance}
