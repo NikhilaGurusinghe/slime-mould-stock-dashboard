@@ -72,8 +72,6 @@ export default function SlimeStatusHistory(props: {
           <HistorySection />
           <HistorySection />
           <HistorySection />
-       
-     
         </div>
       )}
 
