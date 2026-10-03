@@ -1,28 +1,28 @@
 "use client";
 
 import clsx from "clsx";
-import { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 export default function PortfolioExplorer(props: {
   balance: number;
   profitAndLoss: number;
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
 }) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
   return (
     <div
       className={clsx(
         "flex flex-col gap-y-2 transition-all border border-transparent transition-discrete rounded-4xl",
-        !isOpen &&
+        !props.isOpen &&
           "hover:px-5 hover:-ml-5 hover:py-3 hover:-mt-3 hover:border-(--color-highlight-border)/20 hover:bg-(--color-highlight)/30 hover:backdrop-blur-md",
-        isOpen &&
+        props.isOpen &&
           "px-5 -ml-5 py-3 -mt-3 border-(--color-highlight-border)/20 bg-(--color-highlight)/30 border backdrop-blur-md",
       )}
     >
       <button
         type="button"
         className="flex flex-row pl-5 -ml-5 pt-3 -mt-3 text-5xl md:text-7xl items-baseline justify-baseline font-medium cursor-pointer rounded-4xl border-transparent border"
-        onClick={() => setIsOpen((prevValue) => !prevValue)}
+        onClick={() => props.setIsOpen(!props.isOpen)}
       >
         <span className="sr-only">view all portfolio assets</span>
         <span className="font-stretch-103%">$</span>
@@ -40,7 +40,7 @@ export default function PortfolioExplorer(props: {
           )
         </span>
       </button>
-      {isOpen && (
+      {props.isOpen && (
         <div className="flex flex-col items-center justify-center w-full h-70 border border-white">
           pie chart
         </div>
