@@ -24,12 +24,12 @@ export default function PortfolioExplorer(props: {
         onClick={() => props.setIsOpen(!props.isOpen)}
       >
         <span className="sr-only">view all portfolio assets</span>
-        <p>
+        <p className="mr-2 md:mr-3">
           <span className="font-stretch-103%">$</span>
           <span className="font-stretch-110%">{props.balance}</span>
         </p>
         <p className="-mt-4">
-          <span className="text-2xl md:text-3xl ml-0 sm:ml-2 md:ml-4 font-normal font-stretch-103%">
+          <span className="text-2xl md:text-3xl font-normal font-stretch-103%">
             (
           </span>
           <span className="text-xl md:text-2xl font-normal font-stretch-103%">

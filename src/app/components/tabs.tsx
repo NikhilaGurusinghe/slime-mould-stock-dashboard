@@ -66,7 +66,7 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
       />
       <div
         role="tablist"
-        className="flex flex-col md:flex-row relative justify-center items-center gap-y-2 md:gap-x-2"
+        className="flex flex-col md:flex-row relative justify-center items-center gap-y-3 md:gap-x-2"
       >
         {props.tabButtonNames.map((tabName, index) => (
           <button
@@ -77,7 +77,7 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
               allButtonRefs.current[index] = element;
             }}
             type="button"
-            className="cursor-pointer px-3 py-2 rounded-full w-full md:text-nowrap"
+            className="cursor-pointer px-3 py-3 md:py-2 rounded-full w-full md:text-nowrap leading-4.5 md:leading-normal items-start"
             onClick={() => updateHighlight(index)}
             aria-selected={currHighlightIndex === index}
           >
