@@ -1,11 +1,8 @@
 "use client";
 
-import clsx from "clsx";
 import { type RefObject, useLayoutEffect, useRef, useState } from "react";
 
 export default function Tabs(props: { tabButtonNames: string[] }) {
-  const FLEX_X_GAP: number = 8; // in px
-
   const allButtonRefs: RefObject<HTMLButtonElement[]> = useRef<
     HTMLButtonElement[]
   >([]);
@@ -17,7 +14,11 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
   const [currHighlightIndex, setCurrHighlightIndex] = useState<number>(0);
 
   function updateHighlight(refIndex: number) {
-    if (allButtonRefs.current.length === 0 || refIndex > allButtonRefs.current.length) return;
+    if (
+      allButtonRefs.current.length === 0 ||
+      refIndex > allButtonRefs.current.length
+    )
+      return;
     const ref = allButtonRefs.current[refIndex];
 
     setHighlightWidth(ref.clientWidth);
@@ -44,7 +45,7 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
   }, []);
 
   return (
-    <div className="relative flex bg-white/5 border-white/10 rounded-2xl border px-px py-px">
+    <div className="relative flex bg-white/5 border-white/10 rounded-2xl border px-px py-px -right-3 md:text-lg">
       <div
         className={
           "absolute h-(--highlight-height) md:w-(--highlight-width) md:translate-x-(--highlight-translate-x) translate-y-(--highlight-translate-y) md:h-[calc(100%-2px)] w-[calc(100%-2px)] transition-all backdrop-blur-md bg-(--color-highlight)/30 border border-(--color-highlight-border)/20 rounded-2xl"
@@ -60,7 +61,7 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
       ></div>
       <div
         role="tablist"
-        className="flex flex-col md:flex-row relative justify-center items-center md:gap-x-2"
+        className="flex flex-col md:flex-row relative justify-center items-center gap-y-2 md:gap-x-2"
       >
         {props.tabButtonNames.map((tabName, index) => (
           <button

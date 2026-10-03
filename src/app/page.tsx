@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="relative flex flex-col h-full w-full items-center justify-center">
       <div className="absolute inset-0 w-full h-full flex flex-col items-start justify-between p-5 md:p-10">
-        <div className="flex flex-row  gap-x-6 z-100 justify-start text-xl items-center underline-offset-6">
+        <div className="flex flex-row gap-x-6 z-100 justify-start text-xl items-center underline-offset-6">
           <h1 className="sr-only">Dashboard</h1>
           <PortfolioExplorer balance={balance} profitAndLoss={-139.1} />
         </div>
