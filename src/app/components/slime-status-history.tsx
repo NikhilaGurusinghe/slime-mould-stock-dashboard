@@ -45,33 +45,35 @@ export default function SlimeStatusHistory(props: {
       )}
     >
       {props.isOpen && (
-        <div className="flex h-full flex-col justify-end overflow-y-scroll min-h-0 scrollbar-thin">
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
-          <HistorySection />
+        <div className="w-full flex-1 min-h-0 overflow-y-auto overscroll-contain scrollbar-thin">
+          <div className="flex min-h-full flex-col justify-end">
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+            <HistorySection />
+          </div>
         </div>
       )}
 
