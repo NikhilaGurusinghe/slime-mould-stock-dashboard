@@ -14,7 +14,7 @@ export default function HomepageControls(props: {
 
   return (
     <div className="absolute w-full h-full flex flex-row items-start justify-between p-5 md:p-10 gap-x-3">
-      <div className="flex-8/10 h-full flex flex-col gap-x-6 justify-between items-start">
+      <div className="flex-8/10 h-full flex flex-col gap-y-4 justify-between items-start">
         <h1 className="sr-only">Dashboard</h1>
         <PortfolioExplorer
           isOpen={isExplorerOpen}
