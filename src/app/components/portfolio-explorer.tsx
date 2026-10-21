@@ -55,7 +55,6 @@ export default function PortfolioExplorer(props: {
               <div>1</div>
               <div>1</div>
               <div>1</div>
-        
             </div>
           </div>
         </>
