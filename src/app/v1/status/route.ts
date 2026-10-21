@@ -45,7 +45,23 @@ export async function POST(request: NextRequest) {
         statusText: "OK",
       });
     case SlimeMouldState.SLIME_MOULD_DECISION: {
-      const decisionParseResult = schemaDecision.safeParse(formData);
+      const decisionParseResult: z.ZodSafeParseResult<{
+        state: SlimeMouldState.SLIME_MOULD_DECISION;
+        decision: SlimeMouldDecision;
+        image: File;
+      }> = schemaDecision.safeParse(formData);
+
+      if (!decisionParseResult.success) {
+        return new Response("Missing decision and/or image formData fields", {
+          status: 400,
+          statusText: "Bad Request",
+        });
+      }
+
+      const { decision, image } = decisionParseResult.data;
+
+      
+
 
       return new Response("Status update succeeded", {
         status: 200,
