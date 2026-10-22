@@ -1,6 +1,9 @@
 import SlimeMouldDecision from "@/app/lib/slime-mould-decision";
 import SlimeMouldState from "@/app/lib/slime-mould-state";
+import { randomUUID } from "crypto";
+import { mkdir, writeFileSync } from "fs";
 import { NextRequest } from "next/server";
+import path from "path";
 import z from "zod";
 import { zfd } from "zod-form-data";
 
@@ -14,6 +17,8 @@ const schemaDecision = zfd.formData({
   image: zfd.file(),
 });
 
+const imageDirectory: string = "/slimeMouldStockDashboard/petriDishImages";
+
 const stateFormDataKey: string = "state";
 
 export async function POST(request: NextRequest) {
@@ -23,7 +28,6 @@ export async function POST(request: NextRequest) {
     state: SlimeMouldState;
   }> = schemaDefault.safeParse(formData);
   // console.log(formData)
-
 
   // no status field found/no valid status field found
   if (!defaultParseResult.success) {
@@ -61,10 +65,29 @@ export async function POST(request: NextRequest) {
         });
       }
 
+      // decision is exposed here
       const { decision, image } = decisionParseResult.data;
 
-      console.log(decision, image)    
+      // take image hash + timestamp (from image name) to get random number
 
+      // save image to disk with appropriate file name
+      // use the last modified time here instead of the transmitted time (which is currently what image.name's
+      // first part has)
+      console.log(
+        `${imageDirectory}/${image.lastModified}_${image.name.split("_")[1]}`,
+      );
+      const imageStorageDirectory: string = path.join(process.cwd(), imageDirectory);
+      mkdir(imageStorageDirectory, { recursive: true }, (err) => {
+        // TODO better error handling here
+        if (err) throw err;
+      });
+      // console.log(uploadDirectory.toString());
+      const imageFileLocation: string = path.join(imageStorageDirectory, `/${image.lastModified}_${randomUUID()}.jpg`);
+      writeFileSync(imageFileLocation, Buffer.from(await image.arrayBuffer()));
+
+      // add details to database
+
+      console.log(decision, image);
 
       return new Response("Status update succeeded", {
         status: 200,
