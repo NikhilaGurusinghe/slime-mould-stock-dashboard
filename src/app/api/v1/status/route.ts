@@ -7,7 +7,7 @@ import path from "path";
 import z from "zod";
 import { zfd } from "zod-form-data";
 import crypto from "node:crypto";
-import { xoroshiro128plus } from "pure-rand/generator/xoroshiro128plus";
+const seedrandom = require("seedrandom");
 
 const schemaDefault = zfd.formData({
   state: zfd.text(z.enum(SlimeMouldState)),
@@ -75,13 +75,11 @@ export async function POST(request: NextRequest) {
       // take image hash + timestamp (from image name) to get random number
       const hasher: crypto.Hash = crypto.createHash("sha256");
       hasher.update(bufferedImage);
-      const hash = hasher.digest("binary");
-      const hashNumber = parseInt(hash, 2);
-      console.log(hashNumber);
-
-      // https://www.npmjs.com/package/pure-rand
-      // TODO find random that takes string not just number as seed
-      // const rng = xoroshiro128plus
+      const imageHash = hasher.digest("hex");
+      // seeind the prng with our image hash
+      const prng = seedrandom(imageHash);
+      // random number between 0 and 1 (includes real numbers)
+      const imageHashRandomNumber: number = prng();
 
       // save image to disk with appropriate file name
       // use the last modified time here instead of the transmitted time (which is currently what image.name's
@@ -99,9 +97,16 @@ export async function POST(request: NextRequest) {
         imageStorageDirectory,
         `/${image.lastModified}_${randomUUID()}.jpg`,
       );
+      // TODO uncomment this
       // writeFileSync(imageFileLocation, bufferedImage);
 
       // add details to database
+
+      // TODO stock pick stuff
+      // TODO use this imageHashRandomNumber to narrow down stock picks a lot (to 2 stocks)
+      // TODO use decision to narrow down to a single stock
+      // TODO "buy" stock/put it in database with current price of stock today (i.e. buy price)
+      // TODO get a more accurate "buy price"
 
       console.log(decision, image);
 
