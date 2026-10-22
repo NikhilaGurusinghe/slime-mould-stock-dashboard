@@ -22,6 +22,8 @@ export async function POST(request: NextRequest) {
   const defaultParseResult: z.ZodSafeParseResult<{
     state: SlimeMouldState;
   }> = schemaDefault.safeParse(formData);
+  // console.log(formData)
+
 
   // no status field found/no valid status field found
   if (!defaultParseResult.success) {
@@ -45,6 +47,7 @@ export async function POST(request: NextRequest) {
         statusText: "OK",
       });
     case SlimeMouldState.SLIME_MOULD_DECISION: {
+      // console.log("OMG IT WORKS!");
       const decisionParseResult: z.ZodSafeParseResult<{
         state: SlimeMouldState.SLIME_MOULD_DECISION;
         decision: SlimeMouldDecision;
@@ -60,7 +63,7 @@ export async function POST(request: NextRequest) {
 
       const { decision, image } = decisionParseResult.data;
 
-      
+      console.log(decision, image)    
 
 
       return new Response("Status update succeeded", {
