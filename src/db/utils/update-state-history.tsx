@@ -5,7 +5,14 @@ import { stateHistoryTable } from "../schema";
 import type SlimeMouldDecision from "@/app/lib/slime-mould-decision";
 import type SlimeMouldState from "@/app/lib/slime-mould-state";
 
-export async function updateStateHistoryDefault(state: SlimeMouldState) {}
+export async function updateStateHistoryDefault(
+  timestampMS: number,
+  state: SlimeMouldState,
+) {
+  const updated = await db
+    .insert(stateHistoryTable)
+    .values({ timestampMS: new Date(timestampMS), state: state });
+}
 
 export async function updateStateHistoryDecision(
   timestampMS: number,
@@ -14,5 +21,11 @@ export async function updateStateHistoryDecision(
   imagePath: string,
   stockTicker: string,
 ) {
-  const updated = await db.insert(stateHistoryTable).values({ timestampMS, state, decision, imagePath, stockTicker })
+  const updated = await db.insert(stateHistoryTable).values({
+    timestampMS: new Date(timestampMS),
+    state,
+    stockTicker,
+    decision,
+    imagePath,
+  });
 }

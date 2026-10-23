@@ -9,6 +9,7 @@ import { zfd } from "zod-form-data";
 import crypto from "node:crypto";
 import { getAvailableStocksTickers } from "@/db/utils/get-available-stocks";
 import shuffleArrayInPlace from "@/app/lib/utils/shuffle-array";
+import { updateStateHistoryDecision } from "@/db/utils/update-state-history";
 const seedrandom = require("seedrandom");
 
 const schemaDefault = zfd.formData({
@@ -133,20 +134,33 @@ export async function POST(request: NextRequest) {
         if (err) throw err;
       });
       // console.log(uploadDirectory.toString());
+      const imageFileName: string = `/${image.lastModified}_${randomUUID()}.jpg`;
       const imageFileLocation: string = path.join(
         imageStorageDirectory,
-        `/${image.lastModified}_${randomUUID()}.jpg`,
+        imageFileName,
       );
       // TODO uncomment this
       // writeFileSync(imageFileLocation, bufferedImage);
 
       // TODO stock pick stuff
-      // TODO use this imageHashRandomNumber to narrow down stock picks a lot (to 2 stocks)
-      // TODO use decision to narrow down to a single stock
-      // TODO "buy" stock/put it in database with current price of stock today (i.e. buy price)
+      // TODO use this imageHashRandomNumber to narrow down stock picks a lot (to 2 stocks) -done
+      // TODO use decision to narrow down to a single stock -done
+      // TODO /put it in database -doing
+      // TODO with current price of stock today (i.e. buy price -> polling daily
+      // TODO "buy" stock
       // TODO get a more accurate "buy price"
 
       console.log(decision, image);
+
+      console.log(state);
+      // decidedStockPickTicker should be non null by this point
+      updateStateHistoryDecision(
+        image.lastModified,
+        state,
+        decision,
+        imageFileName,
+        decidedStockPickTicker as string,
+      );
 
       return new Response("Status update succeeded", {
         status: 200,
