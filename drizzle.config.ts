@@ -1,11 +1,11 @@
-import "dotenv/config";
 import { defineConfig } from "drizzle-kit";
+import "dotenv/config";
 import dotenv from "dotenv";
 
+// injecting our .env.local file's secrets
 dotenv.config({
     path: ".env.local",
 });
-  
 
 export default defineConfig({
   out: "./drizzle",
