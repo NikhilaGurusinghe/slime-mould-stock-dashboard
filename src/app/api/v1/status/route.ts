@@ -7,7 +7,7 @@ import path from "path";
 import z from "zod";
 import { zfd } from "zod-form-data";
 import crypto from "node:crypto";
-import { getAvailableStocksTickers } from "@/db/utils/stock-pick-utils";
+import { getAvailableStocksTickers } from "@/db/utils/get-available-stocks";
 import shuffleArrayInPlace from "@/app/lib/utils/shuffle-array";
 const seedrandom = require("seedrandom");
 
@@ -77,8 +77,9 @@ export async function POST(request: NextRequest) {
       // get list of available stocks
       const availableStocksTickers: string[] =
         await getAvailableStocksTickers();
-      let firstStockPickTicker: string | null = null;
-      let secondStockPickTicker: string | null = null;
+      let stockPickATicker: string | null = null;
+      let stockPickBTicker: string | null = null;
+      let decidedStockPickTicker: string | null = null;
 
       // take image hash + timestamp (from image name) to get random number
       const hasher: crypto.Hash = crypto.createHash("sha256");
@@ -91,15 +92,34 @@ export async function POST(request: NextRequest) {
       // prng() = random number between 0 and 1 (includes real numbers)
       // we want a random number from 0 to availableStocks.size twice
       // duplicates are fine here
-      firstStockPickTicker =
+      stockPickATicker =
         availableStocksTickers[
           Math.floor(prng() * availableStocksTickers.length)
         ];
-      secondStockPickTicker = availableStocksTickers[
-        Math.floor(prng() * availableStocksTickers.length)
-      ];
-      
-      console.log(availableStocksTickers.length, firstStockPickTicker, secondStockPickTicker);
+      stockPickBTicker =
+        availableStocksTickers[
+          Math.floor(prng() * availableStocksTickers.length)
+        ];
+
+      if (stockPickATicker === null || stockPickBTicker === null) {
+        throw new Error("failed to pick a stock");
+      }
+
+      if (decision === SlimeMouldDecision.A) {
+        decidedStockPickTicker = stockPickATicker;
+      } else if (decision === SlimeMouldDecision.B) {
+        decidedStockPickTicker = stockPickBTicker;
+      }
+
+      // add details to database
+
+      console.log(
+        availableStocksTickers.length,
+        stockPickATicker,
+        stockPickBTicker,
+        decision,
+        decidedStockPickTicker,
+      );
 
       // save image to disk with appropriate file name
       // use the last modified time here instead of the transmitted time (which is currently what image.name's
@@ -119,8 +139,6 @@ export async function POST(request: NextRequest) {
       );
       // TODO uncomment this
       // writeFileSync(imageFileLocation, bufferedImage);
-
-      // add details to database
 
       // TODO stock pick stuff
       // TODO use this imageHashRandomNumber to narrow down stock picks a lot (to 2 stocks)
