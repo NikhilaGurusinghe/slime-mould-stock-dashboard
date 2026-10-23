@@ -1,4 +1,3 @@
-import SlimeMouldDecision from "@/app/lib/slime-mould-decision";
 import { inArray, sql } from "drizzle-orm";
 import {
   check,
@@ -9,6 +8,7 @@ import {
   sqliteTable,
   text,
 } from "drizzle-orm/sqlite-core";
+import SlimeMouldDecision from "@/app/lib/slime-mould-decision";
 
 // array needs to be non-empty hence the wacky type
 const SlimeMouldDecisionEnumArray = Object.values(SlimeMouldDecision) as [
