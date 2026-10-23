@@ -21,6 +21,7 @@ const SlimeMouldDecisionEnumArray = Object.values(SlimeMouldDecision) as [
 // these are all the available stocks that we can choose from
 export const stocksTable = sqliteTable("stock_table", {
   stockTicker: text().primaryKey(),
+  stockName: text(),
 });
 
 // all the slime mould states that have been executed in the past
