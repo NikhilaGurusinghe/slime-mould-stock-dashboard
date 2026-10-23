@@ -7,6 +7,8 @@ import path from "path";
 import z from "zod";
 import { zfd } from "zod-form-data";
 import crypto from "node:crypto";
+import { getAvailableStocksTickers } from "@/db/utils/stock-pick-utils";
+import shuffleArrayInPlace from "@/app/lib/utils/shuffle-array";
 const seedrandom = require("seedrandom");
 
 const schemaDefault = zfd.formData({
@@ -72,14 +74,32 @@ export async function POST(request: NextRequest) {
         await image.arrayBuffer(),
       );
 
+      // get list of available stocks
+      const availableStocksTickers: string[] =
+        await getAvailableStocksTickers();
+      let firstStockPickTicker: string | null = null;
+      let secondStockPickTicker: string | null = null;
+
       // take image hash + timestamp (from image name) to get random number
       const hasher: crypto.Hash = crypto.createHash("sha256");
       hasher.update(bufferedImage);
       const imageHash = hasher.digest("hex");
       // seeind the prng with our image hash
       const prng = seedrandom(imageHash);
-      // random number between 0 and 1 (includes real numbers)
-      const imageHashRandomNumber: number = prng();
+      // shuffle our available stocks with our prng
+      shuffleArrayInPlace(availableStocksTickers, prng);
+      // prng() = random number between 0 and 1 (includes real numbers)
+      // we want a random number from 0 to availableStocks.size twice
+      // duplicates are fine here
+      firstStockPickTicker =
+        availableStocksTickers[
+          Math.floor(prng() * availableStocksTickers.length)
+        ];
+      secondStockPickTicker = availableStocksTickers[
+        Math.floor(prng() * availableStocksTickers.length)
+      ];
+      
+      console.log(availableStocksTickers.length, firstStockPickTicker, secondStockPickTicker);
 
       // save image to disk with appropriate file name
       // use the last modified time here instead of the transmitted time (which is currently what image.name's

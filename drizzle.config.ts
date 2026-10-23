@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 // injecting our .env.local file's secrets
 dotenv.config({
-    path: ".env.local",
+  path: ".env.local",
 });
 
 export default defineConfig({

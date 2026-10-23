@@ -30,6 +30,7 @@ export const stateHistoryTable = sqliteTable(
   {
     timestampMS: integer({ mode: "timestamp_ms" }).primaryKey(),
     state: text({ enum: SlimeMouldDecisionEnumArray }).notNull(),
+    stockTicker: text().references(() => stocksTable.stockTicker), // can be null
     decision: text(), // can be null
     imagePath: text(), // also can be null
   },
