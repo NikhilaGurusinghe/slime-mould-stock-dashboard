@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import PortfolioPieChart from "./portfolio-pie-chart";
 
 export default function PortfolioExplorer(props: {
   balance: number;
@@ -45,8 +46,8 @@ export default function PortfolioExplorer(props: {
       </button>
       {props.isOpen && (
         <>
-          <div className="flex flex-col items-center justify-center w-full h-70 border border-white overflow-y-auto">
-            pie chart
+          <div className="flex flex-col items-center justify-center w-full h-70 overflow-y-auto">
+            <PortfolioPieChart />
           </div>
           <div className="w-full flex-1 min-h-0 overflow-y-auto overscroll-contain scrollbar-track-transparent scrollbar-thumb-white">
             <div className="flex min-h-full flex-col-reverse justify-end pr-5">

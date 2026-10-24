@@ -7,6 +7,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "./shadcn/chart";
+import alpacaPaper from "../alpaca/alpaca-connection";
 
 export const description = "A multiple line chart";
 const chartData = [
@@ -28,21 +29,12 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function StockChart(props: {}) {
+export default async function StockChart(props: {}) {
+  
   return (
-    <ChartContainer config={chartConfig} className="h-full w-full aspect-auto">
-      <LineChart
-        accessibilityLayer
-        data={chartData}
-        margin={{ left: -1 }}
-      >
-        <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tick={false}
-          
-        />
+    <ChartContainer config={chartConfig} className="h-full w-full">
+      <LineChart accessibilityLayer data={chartData} margin={{ left: -1 }}>
+        <XAxis dataKey="month" tickLine={false} axisLine={false} tick={false} />
         <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
         <Line
           dataKey="mobile"
