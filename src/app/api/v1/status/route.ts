@@ -142,7 +142,7 @@ export async function POST(request: NextRequest) {
         imageStorageDirectory,
         imageFileName,
       );
-      // TODO DEBUG uncomment this 
+      // TODO DEBUG uncomment this
       // writeFileSync(imageFileLocation, bufferedImage);
 
       // TODO stock pick stuff
@@ -150,11 +150,10 @@ export async function POST(request: NextRequest) {
       // TODO use decision to narrow down to a single stock -done
       // TODO /put it in database -done
       // TODO with current price of stock today (i.e. buy price -> polling daily -> cron job
-      // TODO "buy" stock
-      // TODO get a more accurate "buy price"
+      // TODO "buy" stock - done
 
       console.log(decision, image);
-      
+
       // execute fractional buy via alpaca
       // TODO DEBUG uncomment this
       // const buyOrder = await alpacaPaper.trading.orders.postOrder({
@@ -176,13 +175,14 @@ export async function POST(request: NextRequest) {
       console.log(state);
       // decidedStockPickTicker should be non null by this point
       // add details to database
-      updateStateHistoryDecision(
-        image.lastModified,
-        state,
-        decision,
-        imageFileName,
-        decidedStockPickTicker,
-      );
+      // TODO DEBUG uncomment this
+      // updateStateHistoryDecision(
+      //   image.lastModified,
+      //   state,
+      //   decision,
+      //   imageFileName,
+      //   decidedStockPickTicker,
+      // );
 
       return new Response("Status update succeeded", {
         status: 200,
