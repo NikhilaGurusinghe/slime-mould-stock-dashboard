@@ -1,4 +1,5 @@
 import HomepageControls from "./components/homepage-controls";
+import StockChart from "./components/stock-chart";
 
 export default function Home() {
   const balance: number = 9351.12;
@@ -8,10 +9,11 @@ export default function Home() {
 
       <main
         id="content"
-        className="flex w-full h-full items-center justify-center"
+        className="flex w-full h-full items-end justify-center"
       >
-        Chart
-        <div></div>
+        <div className="w-full h-[80%] items-center justify-center z-0 mb-10">
+          <StockChart />
+        </div>
       </main>
     </div>
   );

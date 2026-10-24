@@ -5,6 +5,10 @@ import localFont from "next/font/local";
 import Link from "next/link";
 import Navbar from "./components/navbar";
 import SkipToMainContent from "./components/skip-to-main-content";
+import { Inter } from "next/font/google";
+import { cn } from "@/app/lib/utils/utils";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const ABCSchengenVariable = localFont({
   src: "../fonts/Schengen/ABCSchengenVariable/ABCSchengenVariableTrial.ttf",
@@ -115,7 +119,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`h-full antialiased`}>
+    <html
+      lang="en"
+      className={cn("h-full", "antialiased", "font-sans", inter.variable)}
+    >
       <body
         className={`${ABCSchengenVariable.className} h-screen w-screen flex flex-col`}
       >

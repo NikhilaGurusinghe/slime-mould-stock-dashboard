@@ -47,7 +47,7 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
   }, [currHighlightIndex]);
 
   return (
-    <div className="relative flex bg-white/5 border-white/10 rounded-2xl border px-px py-px md:-right-3 md:text-lg">
+    <div className="relative pointer-events-auto flex bg-white/5 border-white/10 rounded-2xl border px-px py-px md:-right-3 md:text-lg">
       <div
         className={clsx(
           highlightWidth !== -1 && highlightHeight !== -1

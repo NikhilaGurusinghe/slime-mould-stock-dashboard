@@ -13,7 +13,7 @@ export default function HomepageControls(props: {
   const [isStatusOpen, setIsStatusOpen] = useState<boolean>(false);
 
   return (
-    <div className="absolute w-full h-full flex flex-row items-start justify-between p-5 md:p-10 gap-x-3">
+    <div className="pointer-events-none absolute w-full h-full flex flex-row items-start justify-between p-5 md:p-10 gap-x-3 z-10">
       <div className="flex-8/10 h-full flex flex-col gap-y-4 justify-between items-start">
         <h1 className="sr-only">Dashboard</h1>
         <PortfolioExplorer

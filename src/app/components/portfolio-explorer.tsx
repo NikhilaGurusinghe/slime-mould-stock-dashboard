@@ -11,7 +11,7 @@ export default function PortfolioExplorer(props: {
   return (
     <div
       className={clsx(
-        "flex flex-col gap-y-2 transition-all border border-transparent transition-discrete",
+        "flex pointer-events-auto flex-col gap-y-2 transition-all border border-transparent transition-discrete",
         !props.isOpen &&
           "hover:px-3 hover:-ml-3 hover:py-3 hover:-mt-3 hover:border-white/10 hover:bg-(--color-highlight)/30 hover:backdrop-blur-md rounded-3xl",
         props.isOpen &&
