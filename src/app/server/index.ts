@@ -1,4 +1,5 @@
 import nodeCron from "node-cron";
+import alpacaPaper from "../alpaca/alpaca-connection";
 
 const tasks: ReturnType<typeof nodeCron.schedule>[] = [];
 
@@ -11,12 +12,14 @@ export async function registerStockPriceUpdateCron() {
     async () => {
       // update daily closing price for stocks in portfolio
       // TODO need to check for market holidays
-
-      // get all stocks in our portfolio
+      // get all stocks in our portfolio from alpaca
+      // const portfolio = await alpacaPaper
 
       // for each stock ticker, check the closing price (price at 4pm EST)
       // and then add this to our database
       // stockTicker, tradingDate, closingPrice
+
+      // TODO this will probably be replaced
 
     },
     {
