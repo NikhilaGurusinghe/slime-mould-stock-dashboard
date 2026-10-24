@@ -83,9 +83,6 @@ export async function POST(request: NextRequest) {
       // side note all of these stocks have been handpicked so that they should be fractionable
       const availableStocksTickers: string[] =
         await getAvailableStocksTickers();
-      let stockPickATicker: string | null = null;
-      let stockPickBTicker: string | null = null;
-      let decidedStockPickTicker: string | null = null;
 
       // take image hash + timestamp (from image name) to get random number
       const hasher: crypto.Hash = crypto.createHash("sha256");
@@ -98,11 +95,11 @@ export async function POST(request: NextRequest) {
       // prng() = random number between 0 and 1 (includes real numbers)
       // we want a random number from 0 to availableStocks.size twice
       // duplicates are fine here
-      stockPickATicker =
+      const stockPickATicker =
         availableStocksTickers[
           Math.floor(prng() * availableStocksTickers.length)
         ];
-      stockPickBTicker =
+      const stockPickBTicker =
         availableStocksTickers[
           Math.floor(prng() * availableStocksTickers.length)
         ];
@@ -111,9 +108,12 @@ export async function POST(request: NextRequest) {
         throw new Error("failed to pick a stock");
       }
 
+      let decidedStockPickTicker: string;
+
+      // This assumes that the enum SlimeMouldDeccision has only two choices
       if (decision === SlimeMouldDecision.A) {
         decidedStockPickTicker = stockPickATicker;
-      } else if (decision === SlimeMouldDecision.B) {
+      } else {
         decidedStockPickTicker = stockPickBTicker;
       }
 
@@ -142,7 +142,7 @@ export async function POST(request: NextRequest) {
         imageStorageDirectory,
         imageFileName,
       );
-      // TODO uncomment this
+      // TODO DEBUG uncomment this 
       // writeFileSync(imageFileLocation, bufferedImage);
 
       // TODO stock pick stuff
@@ -154,19 +154,24 @@ export async function POST(request: NextRequest) {
       // TODO get a more accurate "buy price"
 
       console.log(decision, image);
-
-      const stockQuoteWrapped = await alpacaPaper.marketData.stocks.stockLatestQuoteSingle({symbol: "AAPL"});
-      const stockQuote = stockQuoteWrapped.quote;
-      const stockAskingPrice: number = stockQuote.ap;
-      // https://stackoverflow.com/a/60869817
-      // we round to the 1st decimal place (perhaps a bit arbitrary)
-      const unitsToBuy: number = Number((userMaxPurchasePerTrade / stockAskingPrice).toFixed(1));
+      
       // execute fractional buy via alpaca
+      // TODO DEBUG uncomment this
+      // const buyOrder = await alpacaPaper.trading.orders.postOrder({
+      //   createOrderRequest: {
+      //     symbol: decidedStockPickTicker,
+      //     notional: userMaxPurchasePerTrade.toFixed(2), // 2 decimal points of precision
+      //     side: "buy",
+      //     type: "market",
+      //     timeInForce: "day",
+      //   },
+      // });
 
-
-  
-    
-
+      // console.log({
+      //   id: buyOrder.id,
+      //   status: buyOrder.status,
+      //   notional: buyOrder.notional,
+      // });
 
       console.log(state);
       // decidedStockPickTicker should be non null by this point
@@ -176,7 +181,7 @@ export async function POST(request: NextRequest) {
         state,
         decision,
         imageFileName,
-        decidedStockPickTicker as string,
+        decidedStockPickTicker,
       );
 
       return new Response("Status update succeeded", {

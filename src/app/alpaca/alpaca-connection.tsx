@@ -6,6 +6,12 @@ if (!alpacaKeyId) throw new Error("APCA_API_KEY_ID is not set");
 const alpacaSecret: string | undefined = process.env.APCA_API_SECRET_KEY;
 if (!alpacaSecret) throw new Error("APCA_API_SECRET_KEY is not set");
 
-const alpacaPaper: Alpaca = new Alpaca({ keyId: alpacaKeyId, secret: alpacaSecret, paper: true });
+const alpacaPaper: Alpaca = new Alpaca({
+  keyId: alpacaKeyId,
+  secret: alpacaSecret,
+  paper: true,
+  timeoutMs: 10_000,
+  retry: { maxRetries: 3 },
+});
 
 export default alpacaPaper;
