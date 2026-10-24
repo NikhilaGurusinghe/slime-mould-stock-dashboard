@@ -4,12 +4,16 @@ import { randomUUID } from "crypto";
 import { mkdir, writeFileSync } from "fs";
 import type { NextRequest } from "next/server";
 import path from "path";
-import z from "zod";
+import z, { symbol } from "zod";
 import { zfd } from "zod-form-data";
 import crypto from "node:crypto";
 import { getAvailableStocksTickers } from "@/db/utils/get-available-stocks";
 import shuffleArrayInPlace from "@/app/lib/utils/shuffle-array";
 import { updateStateHistoryDecision } from "@/db/utils/update-state-history";
+import alpacaPaper from "@/app/alpaca/alpaca-connection";
+import { userMaxPurchasePerTrade } from "@/app/lib/user-settings";
+import { writeFile } from "node:fs/promises";
+import { join } from "node:path";
 const seedrandom = require("seedrandom");
 
 const schemaDefault = zfd.formData({
@@ -76,6 +80,7 @@ export async function POST(request: NextRequest) {
       );
 
       // get list of available stocks
+      // side note all of these stocks have been handpicked so that they should be fractionable
       const availableStocksTickers: string[] =
         await getAvailableStocksTickers();
       let stockPickATicker: string | null = null;
@@ -112,8 +117,6 @@ export async function POST(request: NextRequest) {
         decidedStockPickTicker = stockPickBTicker;
       }
 
-      // add details to database
-
       console.log(
         availableStocksTickers.length,
         stockPickATicker,
@@ -145,15 +148,29 @@ export async function POST(request: NextRequest) {
       // TODO stock pick stuff
       // TODO use this imageHashRandomNumber to narrow down stock picks a lot (to 2 stocks) -done
       // TODO use decision to narrow down to a single stock -done
-      // TODO /put it in database -doing
-      // TODO with current price of stock today (i.e. buy price -> polling daily
+      // TODO /put it in database -done
+      // TODO with current price of stock today (i.e. buy price -> polling daily -> cron job
       // TODO "buy" stock
       // TODO get a more accurate "buy price"
 
       console.log(decision, image);
 
+      const stockQuoteWrapped = await alpacaPaper.marketData.stocks.stockLatestQuoteSingle({symbol: "AAPL"});
+      const stockQuote = stockQuoteWrapped.quote;
+      const stockAskingPrice: number = stockQuote.ap;
+      // https://stackoverflow.com/a/60869817
+      // we round to the 1st decimal place (perhaps a bit arbitrary)
+      const unitsToBuy: number = Number((userMaxPurchasePerTrade / stockAskingPrice).toFixed(1));
+      // execute fractional buy via alpaca
+
+
+  
+    
+
+
       console.log(state);
       // decidedStockPickTicker should be non null by this point
+      // add details to database
       updateStateHistoryDecision(
         image.lastModified,
         state,

@@ -12,6 +12,8 @@ export async function updateStateHistoryDefault(
   const updated = await db
     .insert(stateHistoryTable)
     .values({ timestampMS: new Date(timestampMS), state: state });
+
+  // TODO probably return something from here
 }
 
 export async function updateStateHistoryDecision(
@@ -28,4 +30,6 @@ export async function updateStateHistoryDecision(
     decision,
     imagePath,
   });
+
+  // TODO probably return something from here
 }
