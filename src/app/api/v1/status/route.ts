@@ -9,7 +9,7 @@ import { zfd } from "zod-form-data";
 import crypto from "node:crypto";
 import { getAvailableStocksTickers } from "@/db/utils/get-available-stocks";
 import shuffleArrayInPlace from "@/app/lib/utils/shuffle-array";
-import { updateStateHistoryDecision } from "@/db/utils/update-state-history";
+import { updateStateHistoryDecision } from "@/db/utils/state-history-utils";
 import alpacaPaper from "@/app/alpaca/alpaca-connection";
 import { userMaxPurchasePerTrade } from "@/app/lib/user-settings";
 import { writeFile } from "node:fs/promises";

@@ -29,8 +29,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default async function StockChart(props: {}) {
-  
+export default function StockChart(props: {}) {
   return (
     <ChartContainer config={chartConfig} className="h-full w-full">
       <LineChart accessibilityLayer data={chartData} margin={{ left: -1 }}>
