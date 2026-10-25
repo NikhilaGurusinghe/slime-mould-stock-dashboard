@@ -33,3 +33,16 @@ export async function updateStateHistoryDecision(
 
   // TODO probably return something from here
 }
+
+export async function getAllStateHistory() {
+  const allStateHistory = await db
+    .select({
+      timestampMS: stateHistoryTable.timestampMS,
+      state: stateHistoryTable.state,
+      stockTicker: stateHistoryTable.stockTicker,
+      imagePath: stateHistoryTable.imagePath,
+    })
+    .from(stateHistoryTable);
+
+  return allStateHistory;
+}
