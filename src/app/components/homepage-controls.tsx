@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import PortfolioExplorer from "./portfolio-explorer";
 import SlimeStatusHistory, {
+  defaultSlimeStatusAndHistory,
   SlimeStatusAndHistory,
 } from "./slime-status-history";
 import Tabs from "./tabs";
@@ -12,6 +13,7 @@ import {
   dashboardDataUpdateEventURL,
 } from "../lib/observers/dashboard-data-update";
 import { useSSE } from "use-next-sse";
+import { stateHistoryConversionSchema } from "./utils/state-history-conversion";
 
 export default function HomepageControls(props: {
   balance: number;
@@ -26,22 +28,41 @@ export default function HomepageControls(props: {
     [],
   );
 
+  const loadHistory = useCallback(async () => {
+    try {
+      const response = await fetch("/api/v1/status");
+      if (!response.ok)
+        console.error("homepage-controls failed to fetch slime status history");
+
+      const json = await response.json();
+      const presentableStateHistoryRows: SlimeStatusAndHistory[] =
+        stateHistoryConversionSchema.parse(json);
+
+      setStatusHistory(presentableStateHistoryRows);
+    } catch (error) {
+      console.error(
+        "homepage-controls failed to load slime status history:",
+        error,
+      );
+    }
+  }, []);
   const { data, error, connectionState } = useSSE<DashboardDataUpdate>({
     url: dashboardDataUpdateEventURL,
     eventName: dashboardDataUpdateEventName,
     reconnect: true,
   });
 
+  // this is to initially init statusHistory state
+  useEffect(() => {
+    void loadHistory();
+  }, [loadHistory]);
+
   useEffect(() => {
     if (data?.type === "state-history-updated") {
       // update the statuses object fed into SlimeStatusHistory
-      // fetch("/api/v1/status").then((response) => {
-      //   if (!response.ok) throw new Error("homepage-controls failed to load slime status history");
-      //   return response.json() as
-      // })
-      console.log("hello from sse land", data, connectionState);
+      void loadHistory();
     }
-  }, [data, connectionState]);
+  }, [data, loadHistory]);
 
   return (
     <div className="pointer-events-none absolute w-full h-full flex flex-row items-start justify-between p-5 md:p-10 gap-x-3 z-10">
@@ -60,16 +81,11 @@ export default function HomepageControls(props: {
           setIsOpen={(value: boolean) => {
             setIsStatusOpen(value);
           }}
-          statuses={[
-            {
-              status: "Physarum is currently deciding...",
-              statusColour: "#4efa7b",
-              date: new Date(),
-              message: "Physarum has made a decision",
-              messageDetails: "hello",
-              image: "test",
-            },
-          ]}
+          statuses={
+            statusHistory.length !== 0
+              ? statusHistory
+              : [defaultSlimeStatusAndHistory]
+          }
         />
       </div>
 

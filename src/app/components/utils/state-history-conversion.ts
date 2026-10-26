@@ -1,5 +1,6 @@
 import SlimeMouldState from "@/app/lib/slime-mould-state";
 import z from "zod";
+import { SlimeStatusAndHistory } from "../slime-status-history";
 
 function getPresentationStringsFromState(
   slimeMouldState: SlimeMouldState,
@@ -22,7 +23,7 @@ function getPresentationStringsFromState(
     case SlimeMouldState.SLIME_MOULD_GROWING:
       return {
         status: "Slime mould is currently deciding",
-        statusColour: "#30d058",
+        statusColour: "#e7d537",
         message: "Slime mould was growing",
         messageDetails:
           "The slime mould was considering which decision to make.",
@@ -50,7 +51,7 @@ function getPresentationStringsFromState(
 export const stateHistoryConversionSchema = z
   .array(
     z.object({
-      timestampMS: z.date(),
+      timestampMS: z.coerce.date(),
       state: z.enum(SlimeMouldState),
       stockTicker: z.string().nullable(),
       imagePath: z.string().nullable(),
@@ -70,6 +71,6 @@ export const stateHistoryConversionSchema = z
         message: presentationStrings.message,
         messageDetails: presentationStrings.messageDetails,
         image: row.imagePath !== null ? row.imagePath : undefined,
-      };
+      } as SlimeStatusAndHistory;
     }),
   );
