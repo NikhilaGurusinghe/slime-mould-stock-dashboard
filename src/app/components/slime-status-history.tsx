@@ -7,11 +7,10 @@ import TextMarquee from "./text-marquee";
 export type SlimeStatusAndHistory = {
   status: string;
   statusColour: string;
-  date: number;
+  date: Date;
   message: string;
-  subMessage: string;
-  image: string;
-  iconName: string;
+  messageDetails: string;
+  image: string | undefined;
 };
 
 export default function SlimeStatusHistory(props: {
@@ -23,13 +22,13 @@ export default function SlimeStatusHistory(props: {
     props.statuses.length >= 2
       ? props.statuses[props.statuses.length - 2]
       : {
-          status: "Physarum is initialising...",
+          status: "System is initialising...",
           statusColour: "#ffab52",
-          date: 0,
-          message: "Physarum is initialising",
-          subMessage: "is initialising",
-          image: "test",
-          iconName: "initialise",
+          date: new Date(),
+          message: "System was initialized",
+          messageDetails:
+            "The system was conducting some check and is initialized now.",
+          image: undefined,
         };
   const lastSlimeStatus: SlimeStatusAndHistory =
     props.statuses[props.statuses.length - 1];

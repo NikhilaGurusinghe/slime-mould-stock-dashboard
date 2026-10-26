@@ -34,6 +34,7 @@ export async function updateStateHistoryDecision(
   // TODO probably return something from here
 }
 
+// TODO i don't know why the stockTicker here can be nullable
 export async function getAllStateHistory() {
   const allStateHistory = await db
     .select({

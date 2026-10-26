@@ -1,16 +1,47 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PortfolioExplorer from "./portfolio-explorer";
-import SlimeStatusHistory from "./slime-status-history";
+import SlimeStatusHistory, {
+  SlimeStatusAndHistory,
+} from "./slime-status-history";
 import Tabs from "./tabs";
+import {
+  type DashboardDataUpdate,
+  dashboardDataUpdateEventName,
+  dashboardDataUpdateEventURL,
+} from "../lib/observers/dashboard-data-update";
+import { useSSE } from "use-next-sse";
 
 export default function HomepageControls(props: {
   balance: number;
   profitAndLoss: number;
 }) {
+  // open/close menu stuff
   const [isExplorerOpen, setIsExplorerOpen] = useState<boolean>(false);
   const [isStatusOpen, setIsStatusOpen] = useState<boolean>(false);
+
+  // data from database
+  const [statusHistory, setStatusHistory] = useState<SlimeStatusAndHistory[]>(
+    [],
+  );
+
+  const { data, error, connectionState } = useSSE<DashboardDataUpdate>({
+    url: dashboardDataUpdateEventURL,
+    eventName: dashboardDataUpdateEventName,
+    reconnect: true,
+  });
+
+  useEffect(() => {
+    if (data?.type === "state-history-updated") {
+      // update the statuses object fed into SlimeStatusHistory
+      // fetch("/api/v1/status").then((response) => {
+      //   if (!response.ok) throw new Error("homepage-controls failed to load slime status history");
+      //   return response.json() as
+      // })
+      console.log("hello from sse land", data, connectionState);
+    }
+  }, [data, connectionState]);
 
   return (
     <div className="pointer-events-none absolute w-full h-full flex flex-row items-start justify-between p-5 md:p-10 gap-x-3 z-10">
@@ -33,11 +64,10 @@ export default function HomepageControls(props: {
             {
               status: "Physarum is currently deciding...",
               statusColour: "#4efa7b",
-              date: 12345,
+              date: new Date(),
               message: "Physarum has made a decision",
-              subMessage: "Decided to buy stock A",
+              messageDetails: "hello",
               image: "test",
-              iconName: "decision",
             },
           ]}
         />

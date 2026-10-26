@@ -9,11 +9,16 @@ import { zfd } from "zod-form-data";
 import crypto from "node:crypto";
 import { getAvailableStocksTickers } from "@/db/utils/get-available-stocks";
 import shuffleArrayInPlace from "@/app/lib/utils/shuffle-array";
-import { updateStateHistoryDecision } from "@/db/utils/state-history-utils";
+import {
+  getAllStateHistory,
+  updateStateHistoryDecision,
+} from "@/db/utils/state-history-utils";
 import alpacaPaper from "@/app/alpaca/alpaca-connection";
 import { userMaxPurchasePerTrade } from "@/app/lib/user-settings";
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { publishDataUpdate } from "@/app/lib/observers/dashboard-data-update";
+import { SlimeStatusAndHistory } from "@/app/components/slime-status-history";
 const seedrandom = require("seedrandom");
 
 const schemaDefault = zfd.formData({
@@ -27,6 +32,13 @@ const schemaDecision = zfd.formData({
 });
 
 const imageDirectory: string = "/slimeMouldStockDashboard/petriDishImages";
+
+export type StateHistoryTableRow = {
+  timestampMS: string; // JSON converts Date values to strings
+  state: SlimeMouldState;
+  stockTicker: string | null;
+  imagePath: string | null;
+};
 
 export async function POST(request: NextRequest) {
   const formData: FormData = await request.formData();
@@ -145,13 +157,6 @@ export async function POST(request: NextRequest) {
       // TODO DEBUG uncomment this
       // writeFileSync(imageFileLocation, bufferedImage);
 
-      // TODO stock pick stuff
-      // TODO use this imageHashRandomNumber to narrow down stock picks a lot (to 2 stocks) -done
-      // TODO use decision to narrow down to a single stock -done
-      // TODO /put it in database -done
-      // TODO with current price of stock today (i.e. buy price -> polling daily -> cron job
-      // TODO "buy" stock - done
-
       console.log(decision, image);
 
       // execute fractional buy via alpaca
@@ -184,6 +189,10 @@ export async function POST(request: NextRequest) {
       //   decidedStockPickTicker,
       // );
 
+      // TODO we need to send a sse to our next app to tell it to requery the the
+      // state_history_table in db as we have a new update
+      publishDataUpdate({ type: "state-history-updated" });
+
       return new Response("Status update succeeded", {
         status: 200,
         statusText: "OK",
@@ -200,4 +209,16 @@ export async function POST(request: NextRequest) {
         statusText: "Bad Request",
       });
   }
+}
+
+// TODO do a GET here for status-history from database
+export async function GET(request: NextRequest) {
+  const stateHistory: {
+    timestampMS: Date;
+    state: SlimeMouldState;
+    stockTicker: string | null;
+    imagePath: string | null;
+  }[] = await getAllStateHistory();
+
+  return Response.json(stateHistory);
 }
