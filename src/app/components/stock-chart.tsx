@@ -58,7 +58,9 @@ export default function StockChart(props: {
                   month: "short",
                   year: "numeric",
                 });
-                return <div className="uppercase tracking-wide">{dateLabel}</div>;
+                return (
+                  <div className="uppercase tracking-wide">{dateLabel}</div>
+                );
               }}
               formatter={(value, name) => (
                 <div className="flex flex-col text-xl w-fit items-start text-muted-foreground font-extrabold">

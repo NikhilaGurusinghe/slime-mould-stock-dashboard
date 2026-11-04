@@ -211,7 +211,8 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// TODO do a GET here for status-history from database
+// used by client components to fetch after sse message triggered
+// by above method updating the state history
 export async function GET(request: NextRequest) {
   const stateHistory: {
     timestampMS: Date;
