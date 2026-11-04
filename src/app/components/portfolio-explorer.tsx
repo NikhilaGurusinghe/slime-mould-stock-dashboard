@@ -47,9 +47,9 @@ export default function PortfolioExplorer(props: {
         </p>
       </button>
       {props.isOpen && (
-        <div>
-          <h2>
-            Portfolio contents
+        <div className="mt-2">
+          <h2 className="text-xl font-medium uppercase tracking-wide">
+            Portfolio
           </h2>
           <div className="flex flex-col items-center justify-center w-full h-fit overflow-y-auto">
             <PortfolioPieChart portfolioContents={props.portfolioContents} />
