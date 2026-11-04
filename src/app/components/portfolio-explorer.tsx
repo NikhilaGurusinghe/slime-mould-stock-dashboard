@@ -51,7 +51,7 @@ export default function PortfolioExplorer(props: {
           <h2 className="text-xl font-medium uppercase tracking-wide">
             Portfolio
           </h2>
-          <div className="flex flex-col items-center justify-center w-full h-fit overflow-y-auto">
+          <div className="flex flex-col items-center justify-center w-full h-fit overflow-hidden">
             <PortfolioPieChart portfolioContents={props.portfolioContents} />
           </div>
         </div>

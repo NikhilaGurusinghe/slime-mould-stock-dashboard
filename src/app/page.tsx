@@ -27,6 +27,12 @@ export default async function Home() {
 
   const portfolioContentsSimple: PortfolioPosition[] = [
     { symbol: "TEST", lastdayPrice: "213", qty: "2" },
+    { symbol: "AAPL", lastdayPrice: "113", qty: "1" },
+    { symbol: "ANOT", lastdayPrice: "113.2", qty: "8" },
+    { symbol: "HELL", lastdayPrice: "123", qty: "15" },
+    { symbol: "PIEC", lastdayPrice: "63", qty: "2" },
+    { symbol: "AHAH", lastdayPrice: "123", qty: "3.561" },
+    { symbol: "HIII", lastdayPrice: "99.123", qty: "2" },
   ];
 
   // get total historical portfolio price (total) for every single day to display on line chart

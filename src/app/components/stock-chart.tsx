@@ -10,22 +10,9 @@ import {
 import type { PortfolioPriceDaily } from "@/db/utils/stock-history-utils";
 
 export const description = "A multiple line chart";
-// const chartData = [
-//   { month: "January", desktop: 186, mobile: 80 },
-//   { month: "February", desktop: 305, mobile: 200 },
-//   { month: "March", desktop: 237, mobile: 120 },
-//   { month: "April", desktop: 73, mobile: 190 },
-//   { month: "May", desktop: 209, mobile: 130 },
-//   { month: "June", desktop: 214, mobile: 0 },
-// ];
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--color-highlight)",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "var(--chart-2)",
+  portfolioValue: {
+    label: "Value",
   },
 } satisfies ChartConfig;
 
@@ -66,7 +53,7 @@ export default function StockChart(props: {
                 <div className="flex flex-col text-xl w-fit items-start text-muted-foreground font-extrabold">
                   <div className="flex items-baseline font-stretch-110% font-semibold text-foreground tabular-nums">
                     <span className="font-normal">$</span>
-                    {value}
+                    {Number(value).toFixed(2)}
                   </div>
                   <div className="font-normal text-white/60 text-xs p-0 m-0">
                     <span>in USD</span>
@@ -79,7 +66,7 @@ export default function StockChart(props: {
         <Line
           dataKey="portfolioValue"
           type="monotone"
-          stroke="var(--color-desktop)"
+          stroke="var(--color-highlight)"
           strokeWidth={2}
           dot={false}
         />
