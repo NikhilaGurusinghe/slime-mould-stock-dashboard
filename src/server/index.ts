@@ -12,7 +12,7 @@ export async function registerStockPriceUpdateCron() {
     "0 17 * * 1-5",
     async () => {
       // update daily closing price for stocks in portfolio
-      // TODO need to check for market holidays
+      // TODO need to check for market holidays - later thing
 
       // get all stocks in our portfolio from alpaca
       const allPositions =

@@ -1,6 +1,5 @@
 "use client";
 
-import useResizeObserver from "@react-hook/resize-observer";
 import clsx from "clsx";
 import { type RefObject, useLayoutEffect, useRef, useState } from "react";
 

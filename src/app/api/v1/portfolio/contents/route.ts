@@ -1,5 +1,5 @@
 // TODO
-//  - get portfolio contents (units, whatever alpaca gives) to display on chart (use get-portfolio-details.ts?)
+//  - get portfolio contents (units, whatever alpaca gives) to display on pie chart (use get-portfolio-details.ts?)
 
 import { NextRequest } from "next/server";
 
