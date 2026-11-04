@@ -26,7 +26,7 @@ export default function PortfolioExplorer(props: {
       >
         <span className="sr-only">view all portfolio assets</span>
         <p className="mr-2 md:mr-3">
-          <span className="font-stretch-103%">$</span>
+          <span className="font-stretch-103% font-[410]">$</span>
           <span className="font-stretch-110%">{props.balance}</span>
         </p>
         <p className="-mt-4">

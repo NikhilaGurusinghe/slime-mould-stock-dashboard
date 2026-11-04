@@ -8,8 +8,6 @@ import SkipToMainContent from "./components/skip-to-main-content";
 import { Inter } from "next/font/google";
 import { cn } from "@/app/lib/utils/utils";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-
 const ABCSchengenVariable = localFont({
   src: "../fonts/Schengen/ABCSchengenVariable/ABCSchengenVariableTrial.ttf",
   variable: "--font-schengen-variable",
@@ -119,10 +117,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={cn("h-full", "antialiased", "font-sans", inter.variable)}
-    >
+    <html lang="en" className={cn("h-full", "antialiased", "font-sans")}>
       <body
         className={`${ABCSchengenVariable.className} h-screen w-screen flex flex-col`}
       >

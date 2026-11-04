@@ -14,10 +14,18 @@ import {
 } from "../lib/observers/dashboard-data-update";
 import { useSSE } from "use-next-sse";
 import { stateHistoryConversionSchema } from "./utils/state-history-conversion";
+import { PortfolioPriceDaily } from "@/db/utils/stock-history-utils";
+
+export type PortfolioPosition = {
+  symbol: string;
+  lastdayPrice: string;
+  qty: string;
+};
 
 export default function HomepageControls(props: {
   balance: number;
   profitAndLoss: number;
+  portfolioContents: PortfolioPosition[];
 }) {
   // open/close menu stuff
   const [isExplorerOpen, setIsExplorerOpen] = useState<boolean>(false);

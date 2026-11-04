@@ -5,7 +5,9 @@ import {
   getPortfolioPriceDaily,
 } from "@/db/utils/stock-history-utils";
 import alpacaPaper from "./alpaca/alpaca-connection";
-import HomepageControls from "./components/homepage-controls";
+import HomepageControls, {
+  PortfolioPosition,
+} from "./components/homepage-controls";
 import StockChart from "./components/stock-chart";
 
 // TODO pass alpaca api data into stockchart
@@ -17,23 +19,34 @@ export default async function Home() {
 
   // request to alpaca to get all open positions (we don't care about stuff that's sold etc.)
   // displayed on piechart
-  const portfolioContents =
-    await alpacaPaper.trading.positions.getAllOpenPositions();
+  // const portfolioContents =
+  //   await alpacaPaper.trading.positions.getAllOpenPositions();
+  // const portfolioContentsSimple: PortfolioPosition[] = portfolioContents.map(
+  //   ({ symbol, lastdayPrice, qty }) => ({ symbol, lastdayPrice, qty }),
+  // );
+
+  const portfolioContentsSimple: PortfolioPosition[] = [
+    { symbol: "TEST", lastdayPrice: "213", qty: "2" },
+  ];
 
   // get total historical portfolio price (total) for every single day to display on line chart
-  const portfolioPriceDaily: PortfolioPriceDaily[] =
+  const portfolioPriceHistoryDaily: PortfolioPriceDaily[] =
     await getPortfolioPriceDaily();
 
   return (
     <div className="relative flex flex-col h-full w-full items-center justify-center">
-      <HomepageControls balance={balance} profitAndLoss={123.1} />
+      <HomepageControls
+        portfolioContents={portfolioContentsSimple}
+        balance={balance}
+        profitAndLoss={123.1}
+      />
 
       <main
         id="content"
         className="flex w-full h-full items-end justify-center"
       >
         <div className="w-full h-[80%] items-center justify-center z-0 mb-10">
-          <StockChart />
+          <StockChart portfolioPriceHistoryDaily={portfolioPriceHistoryDaily} />
         </div>
       </main>
     </div>

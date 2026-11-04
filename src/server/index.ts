@@ -20,6 +20,7 @@ export async function registerStockPriceUpdateCron() {
       // get all stocks in our portfolio from alpaca
       const allPositions =
         await alpacaPaper.trading.positions.getAllOpenPositions();
+      // TODO this date may be a day or two off just cause its using the time of the server
       const currentDate: Date = new Date();
 
       // for each stock ticker, check the closing price (price at 4pm EST)
