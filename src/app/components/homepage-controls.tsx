@@ -57,6 +57,7 @@ export default function HomepageControls(props: {
     void loadHistory();
   }, [loadHistory]);
 
+  // this is our SSE handler see /api/v1/sse/route.ts for more information
   useEffect(() => {
     if (data?.type === "state-history-updated") {
       // update the statuses object fed into SlimeStatusHistory

@@ -3,6 +3,11 @@ import db from "../db-connection";
 import { stockHistoryTable } from "../schema";
 import { sum } from "drizzle-orm";
 
+export type PortfolioPriceDaily = {
+  tradingDate: string;
+  portfolioValue: string;
+};
+
 // tradingDate in yyyy-mm-dd
 export async function updateStockHistory(
   stockTicker: string,
@@ -18,13 +23,8 @@ export async function updateStockHistory(
   // TODO probably return something useful from here
 }
 
-export async function getPortfolioPriceDaily(): Promise<
-  {
-    tradingDate: string;
-    portfolioValue: string;
-  }[]
-> {
-  // SELECT SUM(closingPrice) FROM stock_history_table GROUP BY tradingDate
+export async function getPortfolioPriceDaily(): Promise<PortfolioPriceDaily[]> {
+  // SELECT tradingDate, SUM(closingPrice) FROM stock_history_table GROUP BY tradingDate
   const stockHistoryDaily = await db
     .select({
       tradingDate: stockHistoryTable.tradingDate,

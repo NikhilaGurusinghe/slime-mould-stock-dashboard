@@ -13,6 +13,9 @@ export async function registerStockPriceUpdateCron() {
     async () => {
       // update daily closing price for stocks in portfolio
       // TODO need to check for market holidays - later thing
+      // TODO need to fire off a sse response here to update the dashboard's chart when new day
+      //      currently this just works by having the user refresh whenever they want new info
+      //      from a new day
 
       // get all stocks in our portfolio from alpaca
       const allPositions =

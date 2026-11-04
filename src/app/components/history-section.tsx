@@ -1,7 +1,7 @@
 import type { SlimeStatusAndHistory } from "./slime-status-history";
 import { dateDiffInDays } from "./utils/date-diff";
 
-// TODO display images here
+// TODO display images here, something to do later
 
 export default function HistorySection(props: {
   status: SlimeStatusAndHistory;

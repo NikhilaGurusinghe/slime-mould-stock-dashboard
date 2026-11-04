@@ -7,7 +7,6 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "./shadcn/chart";
-import alpacaPaper from "../alpaca/alpaca-connection";
 
 export const description = "A multiple line chart";
 const chartData = [
