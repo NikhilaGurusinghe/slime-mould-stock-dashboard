@@ -14,22 +14,24 @@ export default function PortfolioPieChart(props: {
   portfolioContents: PortfolioPosition[];
 }) {
   // dynamically generating chart config
-    const chartConfig: ChartConfig = {
-      lastdayPrice: {
-        label: "Price",
-      },
-    };
- 
-  const chartData = props.portfolioContents.map(({symbol, lastdayPrice, qty}) => {
-    const randomColour = `#${randomColourFromString(symbol)}`;
+  const chartConfig: ChartConfig = {
+    lastdayPrice: {
+      label: "Price",
+    },
+  };
 
-    return {
-      symbol,
-      lastdayPrice: Number(lastdayPrice),
-      qty,
-      fill: randomColour,
-    };
-  });
+  const chartData = props.portfolioContents.map(
+    ({ symbol, lastdayPrice, qty }) => {
+      const randomColour = `#${randomColourFromString(symbol)}`;
+
+      return {
+        symbol,
+        lastdayPrice: Number(lastdayPrice),
+        qty,
+        fill: randomColour,
+      };
+    },
+  );
 
   console.log(chartData);
   console.log(chartConfig);
