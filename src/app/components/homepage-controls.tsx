@@ -84,6 +84,7 @@ export default function HomepageControls(props: {
           }}
           balance={props.balance}
           profitAndLoss={props.profitAndLoss}
+          portfolioContents={props.portfolioContents}
         />
         <SlimeStatusHistory
           isOpen={isStatusOpen}

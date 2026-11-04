@@ -43,7 +43,7 @@ export default function SlimeStatusHistory(props: {
         props.isOpen
           ? "bg-(--color-highlight)/30 border-white/10 flex-wrap flex-1 h-fit min-h-0"
           : "bg-white/5 border-white/10 hover:bg-(--color-highlight)/30 ",
-        "relative pointer-events-auto flex backdrop-blur-md  flex-col md:text-lg pl-5 py-2 md:-ml-3 max-w-full md:max-w-1/2 overflow-clip items-start justify-end transition-all border border-transparent rounded-2xl",
+        "relative pointer-events-auto flex backdrop-blur-xs flex-col md:text-lg pl-5 py-2 md:-ml-3 max-w-full md:max-w-1/2 overflow-clip items-start justify-end transition-all border border-transparent rounded-2xl",
       )}
     >
       {/* TODO make this scroll to the bottom on mount */}

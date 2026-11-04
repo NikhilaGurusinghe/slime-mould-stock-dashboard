@@ -5,6 +5,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "./shadcn/chart";
+import { PortfolioPosition } from "./homepage-controls";
 
 export const description = "A donut chart";
 const chartData = [
@@ -40,7 +41,9 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function PortfolioPieChart(props: {}) {
+export default function PortfolioPieChart(props: {
+  portfolioContents: PortfolioPosition[];
+}) {
   return (
     <ChartContainer
       config={chartConfig}

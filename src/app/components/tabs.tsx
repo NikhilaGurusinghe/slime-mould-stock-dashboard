@@ -47,13 +47,13 @@ export default function Tabs(props: { tabButtonNames: string[] }) {
   }, [currHighlightIndex]);
 
   return (
-    <div className="relative pointer-events-auto flex bg-white/5 border-white/10 rounded-2xl border px-px py-px md:-right-3 md:text-lg backdrop-blur-md">
+    <div className="relative pointer-events-auto flex bg-white/5 border-white/10 rounded-2xl border px-px py-px md:-right-3 md:text-lg backdrop-blur-xs">
       <div
         className={clsx(
           highlightWidth !== -1 && highlightHeight !== -1
             ? "opacity-100"
             : "opacity-0",
-          "absolute h-(--highlight-height) md:w-(--highlight-width) md:translate-x-(--highlight-translate-x) translate-y-(--highlight-translate-y) md:h-[calc(100%-2px)] w-[calc(100%-2px)] transition-all backdrop-blur-md bg-(--color-highlight)/30 border border-(--color-highlight-border)/20 rounded-2xl",
+          "absolute h-(--highlight-height) md:w-(--highlight-width) md:translate-x-(--highlight-translate-x) translate-y-(--highlight-translate-y) md:h-[calc(100%-2px)] w-[calc(100%-2px)] transition-all backdrop-blur-xs bg-(--color-highlight)/30 border border-(--color-highlight-border)/20 rounded-2xl",
         )}
         style={
           {

@@ -51,19 +51,23 @@ export default function StockChart(props: {
           cursor={false}
           content={
             <ChartTooltipContent
-              className="bg-(--color-highlight)/30 backdrop-blur-md border-white/10"
+              className="bg-(--color-highlight)/30 backdrop-blur-xs border-white/10"
               labelFormatter={(value) => {
-                return new Date(value).toLocaleDateString("en-US", {
+                const dateLabel = new Date(value).toLocaleDateString("en-US", {
                   day: "numeric",
                   month: "short",
                   year: "numeric",
                 });
+                return <div className="uppercase">{dateLabel}</div>;
               }}
               formatter={(value, name) => (
-                <div className="flex text-lg w-fit items-center text-muted-foreground font-extrabold">
-                  <div className="flex text-xl items-baseline gap-0.5 font-stretch-110% font-semibold text-foreground tabular-nums">
+                <div className="flex flex-col text-xl w-fit items-start text-muted-foreground font-extrabold">
+                  <div className="flex items-baseline font-stretch-110% font-semibold text-foreground tabular-nums">
                     <span className="font-normal">$</span>
                     {value}
+                  </div>
+                  <div className="font-normal text-white/60 text-xs p-0 m-0">
+                    <span>in USD</span>
                   </div>
                 </div>
               )}

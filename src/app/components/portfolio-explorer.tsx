@@ -2,10 +2,12 @@
 
 import clsx from "clsx";
 import PortfolioPieChart from "./portfolio-pie-chart";
+import { PortfolioPosition } from "./homepage-controls";
 
 export default function PortfolioExplorer(props: {
   balance: number;
   profitAndLoss: number;
+  portfolioContents: PortfolioPosition[];
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
 }) {
@@ -14,9 +16,9 @@ export default function PortfolioExplorer(props: {
       className={clsx(
         "flex pointer-events-auto flex-col gap-y-2 transition-all border border-transparent transition-discrete",
         !props.isOpen &&
-          "hover:px-3 hover:-ml-3 hover:py-3 hover:-mt-3 hover:border-white/10 hover:bg-(--color-highlight)/30 hover:backdrop-blur-md rounded-3xl",
+          "hover:px-3 hover:-ml-3 hover:py-3 hover:-mt-3 hover:border-white/10 hover:bg-(--color-highlight)/30 hover:backdrop-blur-xs rounded-3xl",
         props.isOpen &&
-          "flex-2 px-3 -ml-3 py-3 -mt-3 border-white/10 bg-(--color-highlight)/30 border backdrop-blur-md rounded-2xl",
+          "flex-2 px-3 -ml-3 py-3 -mt-3 border-white/10 bg-(--color-highlight)/30 border backdrop-blur-xs rounded-2xl",
       )}
     >
       <button
@@ -45,20 +47,14 @@ export default function PortfolioExplorer(props: {
         </p>
       </button>
       {props.isOpen && (
-        <>
-          <div className="flex flex-col items-center justify-center w-full h-70 overflow-y-auto">
-            <PortfolioPieChart />
+        <div>
+          <h2>
+            Portfolio contents
+          </h2>
+          <div className="flex flex-col items-center justify-center w-full h-fit overflow-y-auto">
+            <PortfolioPieChart portfolioContents={props.portfolioContents} />
           </div>
-          <div className="w-full flex-1 min-h-0 overflow-y-auto overscroll-contain scrollbar-track-transparent scrollbar-thumb-white">
-            <div className="flex min-h-full flex-col-reverse justify-end pr-5">
-              <div>1</div>
-              <div>1</div>
-              <div>1</div>
-              <div>1</div>
-              <div>1</div>
-            </div>
-          </div>
-        </>
+        </div>
       )}
     </div>
   );

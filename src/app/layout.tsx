@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import localFont from "next/font/local";
-import Link from "next/link";
 import Navbar from "./components/navbar";
 import SkipToMainContent from "./components/skip-to-main-content";
-import { Inter } from "next/font/google";
 import { cn } from "@/app/lib/utils/utils";
 
 const ABCSchengenVariable = localFont({
