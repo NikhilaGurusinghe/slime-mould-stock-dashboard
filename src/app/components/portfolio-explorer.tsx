@@ -49,9 +49,10 @@ export default function PortfolioExplorer(props: {
       {props.isOpen && (
         <div className="mt-2">
           <h2 className="text-xl font-medium uppercase tracking-wide">
-            Portfolio
+            Portfolio Composition
           </h2>
-          <div className="flex flex-col items-center justify-center w-full h-fit overflow-hidden">
+          {/* make this scrollable */}
+          <div className="flex flex-col items-center justify-center w-full h-fit">
             <PortfolioPieChart portfolioContents={props.portfolioContents} />
           </div>
         </div>
